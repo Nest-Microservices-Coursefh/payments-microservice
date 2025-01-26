@@ -36,8 +36,8 @@ export class PaymentsService {
       }, //colocar el id de la orden
       line_items: lineItems,
       mode: 'payment',
-      success_url: 'http://localhost:3003/payments/success',
-      cancel_url: 'http://localhost:30003/payments/cancel',
+      success_url: envs.stripeSuccessUrl,
+      cancel_url: envs.stripeCancelUrl,
     });
 
     return session;
@@ -48,14 +48,11 @@ export class PaymentsService {
 
     let event: Stripe.Event;
 
-    const endpoint_secret =
-      'whsec_55be09d9ab7d1cbfa5d79cd425f7900070d7b9d6ada4e2e1a15e3bf443743b92';
-
     try {
       event = this.stripe.webhooks.constructEvent(
         req['rawBody'],
         sig,
-        endpoint_secret,
+        envs.stripeEnpointSecret,
       );
     } catch (err) {
       res.status(400).send(`Webhook Error: ${err.message}`);
