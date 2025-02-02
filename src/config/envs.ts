@@ -7,6 +7,7 @@ interface EnvVars {
   STRIPE_SUCCESS_URL: string;
   STRIPE_CANCEL_URL: string;
   STRIPE_ENDPOINTSECRET: string;
+  NATS_SERVERS: string[];
 }
 
 const envSchema = joi
@@ -16,6 +17,7 @@ const envSchema = joi
     STRIPE_SUCCESS_URL: joi.string().required(),
     STRIPE_CANCEL_URL: joi.string().required(),
     STRIPE_ENDPOINTSECRET: joi.string().required(),
+    NATS_SERVERS: process.env.NATS_SERVERS?.split(','),
   })
   .unknown(true); //permite que haya otra variables "flotando"
 
@@ -33,4 +35,5 @@ export const envs = {
   stripeSuccessUrl: envVars.STRIPE_SUCCESS_URL,
   stripeCancelUrl: envVars.STRIPE_CANCEL_URL,
   stripeEnpointSecret: envVars.STRIPE_ENDPOINTSECRET,
+  natsServers: envVars.NATS_SERVERS,
 };
