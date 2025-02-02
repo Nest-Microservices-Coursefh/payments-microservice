@@ -1,12 +1,11 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { envs } from 'src/config';
+import { envs, NATS_SERVICE } from 'src/config';
 import Stripe from 'stripe';
 import {
   PaymentSessionDto,
   PaymentSessionItemDto,
 } from './dto/payment-session.dto';
 import { Request, Response } from 'express';
-import { NATS_SERVICE } from '../../../client-gateway/src/config/services';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
